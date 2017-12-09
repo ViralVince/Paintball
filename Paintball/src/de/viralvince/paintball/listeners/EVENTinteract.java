@@ -23,8 +23,9 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import de.viralvince.paintball.main.Gamestate;
 import de.viralvince.paintball.main.Main;
+import de.viralvince.paintball.methods.CooldownMethoden;
 
-public class EVENTinteract implements Listener{
+public class EVENTinteract extends CooldownMethoden implements Listener{
 	public static int coolcd;
 	public static int coolsek = 5;
 	public static int stcool;
