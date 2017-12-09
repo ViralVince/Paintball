@@ -25,7 +25,12 @@ import de.viralvince.paintball.main.Gamestate;
 import de.viralvince.paintball.main.Main;
 import de.viralvince.paintball.methods.CooldownMethoden;
 
-public class EVENTinteract extends CooldownMethoden implements Listener{
+public class EVENTinteract extends CooldownMethoden implements Listener {
+	
+	public EVENTinteract() {
+		super();
+	}
+
 	public static int coolcd;
 	public static int coolsek = 5;
 	public static int stcool;
@@ -45,8 +50,8 @@ public class EVENTinteract extends CooldownMethoden implements Listener{
 	public static ArrayList<Player> sEnderman = new ArrayList<>();
 	public static ArrayList<Player> sDarkness = new ArrayList<>();
 	public static ArrayList<Player> sLight = new ArrayList<>();
-	@EventHandler
 	
+	@EventHandler
 	public void onInt(PlayerInteractEvent e)  {
 		Player p = e.getPlayer();
 		String UUID = p.getUniqueId().toString();
@@ -98,25 +103,8 @@ public class EVENTinteract extends CooldownMethoden implements Listener{
 				p.playSound(p.getLocation(), Sound.ANVIL_USE, 1, 1);
 				cd.add(p);
 				
-				
-				coolcd = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
-					
-					@Override
-					public void run() {
-						
-						coolsek--;
-						if(coolsek == 0) {
-							
-								cd.remove(p);
-							
-						}
-						
-						
-						
-						}
-					
-				}, 0, 20*5);
-				
+				CooldownMethoden cm = new CooldownMethoden(5, 20, 0, p, cd);
+				cm.cooldownRepeatingTask();
 				
 				} else {
 					p.sendMessage(Main.pr + " §cBitte spamme dieses Item nicht");
@@ -305,23 +293,26 @@ public class EVENTinteract extends CooldownMethoden implements Listener{
 			    
 			    startershot.add(p);
 			    
-			    stcool = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-					
-					@Override
-					public void run() {
-						
-						stcoolsek--;
-						if(stcoolsek == 0) {
-							
-								startershot.remove(p);
-								stcoolsek = 1;
-							
-						}
-						
-						
-						}
-					
-				}, 20);
+			    CooldownMethoden cm = new CooldownMethoden(1, 0, 20, p, startershot);
+			    cm.cooldownDelayedTask();
+			    
+//			    stcool = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						
+//						stcoolsek--;
+//						if(stcoolsek == 0) {
+//							
+//								startershot.remove(p);
+//								stcoolsek = 1;
+//							
+//						}
+//						
+//						
+//						}
+//					
+//				}, 20);
 			    
 
 	            
@@ -405,10 +396,10 @@ public class EVENTinteract extends CooldownMethoden implements Listener{
 				    }.runTaskTimer(Main.getInstance(), 0, 1);
 				    
 				    
-				 
-				    
-				    
 				    startershot.add(p);
+				 
+				    CooldownMethoden cm = new CooldownMethoden(1, 0, 20, p, startershot);
+				    cm.cooldownDelayedTask();
 				    
 				    stcool = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
 						
@@ -527,6 +518,7 @@ public class EVENTinteract extends CooldownMethoden implements Listener{
 					}
 			} else if(e.getItem().equals(starteru)) {
 				if(!startershot.contains(p)) {
+					
 					
 					
 					final Item slime = (Item) p.getWorld().dropItem(p.getEyeLocation(), new ItemStack(Material.NETHER_STAR));
