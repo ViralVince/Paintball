@@ -401,23 +401,23 @@ public class EVENTinteract extends CooldownMethoden implements Listener {
 				    CooldownMethoden cm = new CooldownMethoden(1, 0, 20, p, startershot);
 				    cm.cooldownDelayedTask();
 				    
-				    stcool = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
-						
-						@Override
-						public void run() {
-							
-							stcoolsek--;
-							if(stcoolsek == 0) {
-								
-									startershot.remove(p);
-									stcoolsek = 1;
-								
-							}
-							
-							
-							}
-						
-					}, 20);
+//				    stcool = Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
+//						
+//						@Override
+//						public void run() {
+//							
+//							stcoolsek--;
+//							if(stcoolsek == 0) {
+//								
+//									startershot.remove(p);
+//									stcoolsek = 1;
+//								
+//							}
+//							
+//							
+//							}
+//						
+//					}, 20);
 				    
 
 		            
